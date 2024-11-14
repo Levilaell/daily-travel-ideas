@@ -1,0 +1,64 @@
+{% extends 'global/base.html' %}
+{% block title %}Daily Ideas Hub{% endblock %}
+
+
+<div>
+    {% block content %}
+    {% include "global/partials/index_partials/_banner.html" %}
+
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-evenly themes">
+            {% for theme in themes %}
+                <div class="col-md-2">
+                    
+                    <a href="{% url 'theme-posts' theme.slug %}">
+                        <img style="width: 100%;" src="{{ MEDIA_URL }}images/3_Gastronomy_Concepts_That_Will_Revolutionize_Your_Cooking_Mind-Blown_by_2_Guaranteed_1.png" alt="">
+                        <p class="jost text-center text-capitalize text-uppercase">{{ theme.name }}</p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row d-flex justify-content-between mt-5">
+            <div class="col-lg-8 col-md-12">
+                {% for post in posts %}
+                <div class="post-item row d-flex"> 
+                    <div class="post-image col-xl-4 col-lg-6 col-md-4 mt-4 mt-md-0">
+                        {% if post.featured_image %}
+                        <a href="{% url "post-detail" post.slug %}"><img src="{{ post.featured_image.url }}" alt="{{ post.title }}"></a>
+                        {% endif %}
+                    </div>
+                    <div class="col-xl-7 col-lg-6 col-md-8 mb-4">
+                        <h2 class="playfair fw-bolder my-4 my-md-0 lh-1"><a class="a-hover" href="{% url "post-detail" post.slug %}">{{ post.title }}</a></h2>
+                        <p class="text-start montserrat ls-ssm fs-5 lh-base my-3">{{ post.main_description|truncatewords:40 }}</p>
+                        <a href="{% url 'post-detail' post.slug %}" class="fw-light read-hover">Read more...</a>
+                    </div>
+                </div>
+                {% endfor %}
+                {% if is_paginated %}
+                    {% include "global/partials/index_partials/_pagination.html" %}
+                {% endif %}
+            </div>
+
+            <div class="col-lg-3 col-md-12 mt-md-5 mt-lg-0">
+                <div class="sidebar-widget">
+                    <h3 class="jost fw-light fs-6 text-uppercase">Popular Posts</h3>
+                    <ul class="popular-posts mt-3">
+                        {% for post in popular_posts %}
+                        <li class="playfair fs-5 fw-bolder lh-sm"><a class="a-hover" href="{% url 'post-detail' post.slug %}">{{ post.title }}</a></li>
+                        <hr>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="sidebar-widget text-center mt-5">
+                    <a href="{% url "about" %}"><img style="width: 70%" src="{{ MEDIA_URL }}images/1_Unforgettable_Travel_Destinations_That_Will_Ignite_Your_Wanderlust_Prepare_to_Be_Amazed_by_1.png" alt="About the Author"></a>
+                    <p class="mt-5 fw-light text-uppercase"><a class="a-hover" href="{% url "about" %}">ABOUT</a></p>
+                    <p class="fw-light mt-3 lh-sm">Inspiring you to create the home of your dreams! Explore design ideas, decor tips, and renovation insights to transform any space. Daily pins featuring the latest interior trends, organization tips, and so much more for home lovers everywhere.</p>
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+    {% endblock %}
+
+</div>

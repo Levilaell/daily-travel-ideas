@@ -1,0 +1,30 @@
+<footer class="pt-4 mt-5">
+    <div class="">
+        <div class="contact d-flex text-black p-5">
+            <div class="row d-flex justify-content-around jost text-uppercase m-auto">
+                <div class="row col-md-4 jost fw-light text-uppercase fs-7 d-flex justify-content-center mt-2">
+                    <h6>About Daily Ideas Hub</h6>
+                    <p class="col-md-6 lh-sm">Daily inspiration to transform every space! Explore trending ideas, design tips, and creative projects to bring your vision to life.</p>
+                </div>
+                <div class="col-md-4 jost fw-light text-uppercase fs-7 my-5 my-md-0">
+                    <h6>Quick Links</h6>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About Us</a></li>
+                        <li><a href="{% url 'home' %}">Blog</a></li>
+                        <li><a href="{% url 'privacy-policy' %}">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 jost fw-light text-uppercase fs-7 mt-2">
+                    <h6>Follow Us</h6>
+                    <a href="https://www.pinterest.com/yourprofile" target="_blank" class="text-white d-inline-block">
+                        <i class="fa-brands fa-pinterest-p fa-2xl mt-4" style="color: #df0019;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center d-flex justify-content-center align-items-center copy py-2">
+            <p class="jost fw-light text-light ls-lg">&copy; {{ current_year }} Daily Ideas Hub. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>

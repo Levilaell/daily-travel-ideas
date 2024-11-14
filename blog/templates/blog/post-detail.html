@@ -1,0 +1,31 @@
+{% extends 'global/base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }} - My Blog{% endblock %}
+
+{% block content %}
+<div class="container d-flex flex-column text-start align-items-center justify-content-center">
+    <article class="post-detail text-center row d-flex flex-column align-items-center col-md-12 mt-5">
+        <h1 class="fs-1 fs-md-5 fw-bolder playfair mt-5">{{ post.title }}</h1>
+        <div class="col-md-6 text-start mt-5 mb-3 montserrat ls-ssm fs-5">
+            <span>Published on {{ post.created_at|date:"F d, Y" }}</span>
+        </div>
+        <div class="col-lg-6  col-md-8 text-start montserrat ls-ssm fs-5 lh-base">
+            <p>{{ post.main_description }}</p>
+        </div>
+    </article>
+    <section class="col-lg-6 col-md-8">
+        {% if post.ideas.all %}
+            {% for idea in post.ideas.all %}
+            <div class="idea">
+                <h2 class="playfair fw-bolder fs-3 lh-1">{{ idea.title }}</h2>
+                <p class="text-start montserrat ls-ssm fs-5 lh-base my-3">{{ idea.description }}</p>
+                <img class="mb-5" src="{{ idea.image_url }}" alt="{{ idea.title }}">
+            </div>
+            {% endfor %}
+        {% else %}
+        <p>No ideas available.</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+<div class="text-center fw-light fs-7 mt-5 my-5" role="navigation" aria-label="Paginação">
+    <!-- Link para a Página Anterior -->
+    {% if page_obj.has_previous %}
+        <a class="ls-md" href="?page={{ page_obj.previous_page_number }}" aria-label="Página Anterior">PREVIOUS PAGE</a>
+    {% endif %}
+
+    <!-- Números de Página -->
+    {% for num in paginator.page_range %}
+        {% if num <= 5 %}
+            {% if page_obj.number == num %}
+                <span class="m-1 jost active" aria-current="page">{{ num }}</span>
+            {% else %}
+                <a class="m-1 jost" href="?page={{ num }}" aria-label="Página {{ num }}">{{ num }}</a>
+            {% endif %}
+        {% elif num == 6 and paginator.num_pages > 6 %}
+            <span class="m-1 jost" aria-hidden="true">…</span>
+        {% elif num == paginator.num_pages and paginator.num_pages > 5 %}
+            <a class="m-1 jost" href="?page={{ num }}" aria-label="Página {{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    <!-- Link para a Próxima Página -->
+    {% if page_obj.has_next %}
+        <a class="read-hover" href="?page={{ page_obj.next_page_number }}" aria-label="Próxima Página">NEXT PAGE</a>
+    {% else %}
+        <span class="disabled ls-md" aria-hidden="true">NEXT PAGE</span>
+    {% endif %}
+</div>
