@@ -24,7 +24,7 @@ class HomeView(ListView):
         context['popular_posts'] = Post.objects.order_by('-created_at')[:5]
         
         # Especificar os slugs dos temas que você quer exibir
-        theme_slugs = ['travel-ideas', 'gastronomy-ideas', 'home-decor-ideas', 'tech-trends']
+        theme_slugs = ['family-travel-ideas', 'adventure-travel-ideas', 'honeymoon-travel-ideas', 'budget-and-backpacking-travel-ideas']
         
         # Preservar a ordem dos temas
         preserved = Case(*[When(slug=slug, then=pos) for pos, slug in enumerate(theme_slugs)])
@@ -87,7 +87,7 @@ class PrivacyPolicyView(TemplateView):
 
 class SearchResultsView(ListView):
     model = Post
-    template_name = 'blog/search-results.html'  # Caminho para o template de resultados de pesquisa
+    template_name = 'blog/search-results.html'  # Caminho para o template de resultados de busca
     context_object_name = 'posts'  # Nome da variável no template
 
     def get_queryset(self):
@@ -130,3 +130,4 @@ class ThemeViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['slug']
+

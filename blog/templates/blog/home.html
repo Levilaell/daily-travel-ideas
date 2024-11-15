@@ -1,25 +1,26 @@
 {% extends 'global/base.html' %}
-{% block title %}Daily Ideas Hub{% endblock %}
+{% block title %}Daily Travel Ideas{% endblock %}
 
 
 <div>
     {% block content %}
     {% include "global/partials/index_partials/_banner.html" %}
 
-    <div class="container mt-5">
+    <div class="container mt-md-6">
         <div class="row d-flex justify-content-evenly themes">
+            <h2 class="fs-1 fw-bolder playfair mt-5">Popular Themes</h2>
             {% for theme in themes %}
-                <div class="col-md-2">
+                <div class="col-6 col-md-6 col-lg-3 col-md- mt-0 mt mt-md-0 p-3 ">
                     
                     <a href="{% url 'theme-posts' theme.slug %}">
-                        <img style="width: 100%;" src="{{ MEDIA_URL }}images/3_Gastronomy_Concepts_That_Will_Revolutionize_Your_Cooking_Mind-Blown_by_2_Guaranteed_1.png" alt="">
-                        <p class="jost text-center text-capitalize text-uppercase">{{ theme.name }}</p>
+                        <img style="width: 100%;" src="{{ theme.image.url }}" alt="{{ theme.name }}">
                     </a>
                 </div>
             {% endfor %}
         </div>
         <div class="row d-flex justify-content-between mt-5">
             <div class="col-lg-8 col-md-12">
+                <h2 class="fs-1 fw-bolder playfair">Last Posts</h2>
                 {% for post in posts %}
                 <div class="post-item row d-flex"> 
                     <div class="post-image col-xl-4 col-lg-6 col-md-4 mt-4 mt-md-0">
@@ -29,7 +30,7 @@
                     </div>
                     <div class="col-xl-7 col-lg-6 col-md-8 mb-4">
                         <h2 class="playfair fw-bolder my-4 my-md-0 lh-1"><a class="a-hover" href="{% url "post-detail" post.slug %}">{{ post.title }}</a></h2>
-                        <p class="text-start montserrat ls-ssm fs-5 lh-base my-3">{{ post.main_description|truncatewords:40 }}</p>
+                        <p class="text-start fw-light open-sans ls-ssm fs-5 lh-base my-3">{{ post.main_description|truncatewords:40 }}</p>
                         <a href="{% url 'post-detail' post.slug %}" class="fw-light read-hover">Read more...</a>
                     </div>
                 </div>
@@ -50,9 +51,9 @@
                     </ul>
                 </div>
                 <div class="sidebar-widget text-center mt-5">
-                    <a href="{% url "about" %}"><img style="width: 70%" src="{{ MEDIA_URL }}images/1_Unforgettable_Travel_Destinations_That_Will_Ignite_Your_Wanderlust_Prepare_to_Be_Amazed_by_1.png" alt="About the Author"></a>
+                    <a href="{% url "about" %}"><img style="width: 70%" src="{{ MEDIA_URL }}images/logo.png" alt="About the Author"></a>
                     <p class="mt-5 fw-light text-uppercase"><a class="a-hover" href="{% url "about" %}">ABOUT</a></p>
-                    <p class="fw-light mt-3 lh-sm">Inspiring you to create the home of your dreams! Explore design ideas, decor tips, and renovation insights to transform any space. Daily pins featuring the latest interior trends, organization tips, and so much more for home lovers everywhere.</p>
+                    <p class="fw-light mt-3 lh-sm">Inspiring you to explore the world one idea at a time! Discover travel tips, destination insights, and itineraries designed to bring your wanderlust to life. Daily posts featuring the latest travel trends, adventure tips, and hidden gems for explorers and dreamers everywhere. Your journey begins with a spark—let us fuel your next adventure!</p>
                 </div>
             </div>
 

@@ -1,46 +1,50 @@
 {% extends 'global/base.html' %}
 
-{% block title %}Search Results for "{{ query }}" - Daily Ideas Hub{% endblock %}
-
 {% block content %}
-<div class="container mt-5">
-    <h1>Search Results for "{{ query }}"</h1>
-    {% if search_results %}
-        <div class="row d-flex justify-content-between">
-            <div class="col-lg-7">
-                {% for post in search_results %}
-                <div class="post-item"> 
-                    <div class="post-image">
-                        {% if post.featured_image %}
-                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
-                        {% endif %}
-                    </div>
-                    <div>
-                        <h2>{{ post.title }}</h2>
-                        <p>{{ post.main_description|truncatewords:30 }}</p>
-                        <a href="{% url 'post-detail' post.slug %}" class="read-more">Read more...</a>
-                    </div>
-                </div>
-                {% endfor %}
-                {% if is_paginated %}
-                    {% include "global/partials/index_partials/_pagination.html" %}
-                {% endif %}
-            </div>
+<div class="container mt-6">
+<h1>Search results: </h1>
 
-            <div class="col-lg-4">
-                <div class="sidebar-widget">
-                    <h3>Popular Posts</h3>
-                    <ul class="popular-posts">
-                        {% for post in popular_posts %}
-                        <li><a href="{% url 'post-detail' post.slug %}">{{ post.title }}</a></li>
-                        {% endfor %}
-                    </ul>
+{% if posts %}
+    <p>Results for "{{ request.GET.q }}":</p>
+    <div class="row mt-4">
+        {% for post in posts %}
+            <div class="post-item row d-flex col-xl-6"> 
+                <div class="post-image col-4 col-md-4 col-lg-4 col-xl-4 mt-3 mt-md-0">
+                    {% if post.featured_image %}
+                    <a href="{% url 'post-detail' slug=post.slug %}"><img src="{{ post.featured_image.url }}" alt="{{ post.title }}"></a>
+                    {% endif %}
                 </div>
-                <!-- Include any additional sidebar content if needed -->
+                <div class="col-8 col-xl-8 col-lg- col-md-8 mb-4 d-flex flex-column justify-content-center">
+                    <h2 class="playfair fw-bolder my-4 my-md-0 lh-1 fs-3">
+                        <a class="a-hover" href="{% url 'post-detail' slug=post.slug %}">{{ post.title }}</a>
+                    </h2>
+                    <a href="{% url 'post-detail' slug=post.slug %}" class="fw-light read-hover mt-5 mt-xl-3">Read more...</a>
+                </div>
             </div>
+        {% endfor %}
+    </div>
+    <!-- Paginação (opcional) -->
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?q={{ request.GET.q }}&page=1">&laquo; primeira</a>
+                    <a href="?q={{ request.GET.q }}&page={{ page_obj.previous_page_number }}">anterior</a>
+                {% endif %}
+
+                <span class="current">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?q={{ request.GET.q }}&page={{ page_obj.next_page_number }}">próxima</a>
+                    <a href="?q={{ request.GET.q }}&page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
+                {% endif %}
+            </span>
         </div>
-    {% else %}
-        <p>No results found for "{{ query }}". Please try again with different keywords.</p>
     {% endif %}
+{% else %}
+    <p>No results found</p>
+{% endif %}
 </div>
-{% endblock %}
+{% endblock content %}

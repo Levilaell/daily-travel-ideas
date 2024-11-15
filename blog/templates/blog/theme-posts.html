@@ -2,22 +2,21 @@
 {% block title %}{{ theme.name }} Posts{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4">{{ theme.name }}</h1>
+<div class="container mt-6">
+    <h1 class="mb-4 text-capitalize fs-1 fw-bolder playfair">{{ theme.name }}</h1>
     <div class="row">
         {% for post in posts %}
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="post-item">
-                    {% if post.featured_image %}
-                        <a href="{% url 'post-detail' post.slug %}">
-                            <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="img-fluid">
-                        </a>
-                    {% endif %}
-                    <h2 class="mt-2"><a href="{% url 'post-detail' post.slug %}">{{ post.title }}</a></h2>
-                    <p>{{ post.main_description|truncatewords:20 }}</p>
-                    <a href="{% url 'post-detail' post.slug %}">Read more...</a>
-                </div>
+        <div class="post-item row d-flex col-xl-6"> 
+            <div class="post-image col-4 col-md-4 col-lg-4 col-xl-4 mt-3 mt-md-0">
+                {% if post.featured_image %}
+                <a href="{% url "post-detail" post.slug %}"><img src="{{ post.featured_image.url }}" alt="{{ post.title }}"></a>
+                {% endif %}
             </div>
+            <div class="col-8 col-xl-8 col-lg- col-md-8 mb-4 d-flex flex-column justify-content-center">
+                <h2 class="playfair fw-bolder my-4 my-md-0 lh-1 fs-3"><a class="a-hover" href="{% url "post-detail" post.slug %}">{{ post.title }}</a></h2>
+                <a href="{% url 'post-detail' post.slug %}" class="fw-light read-hover mt-5 mt-xl-3">Read more...</a>
+            </div>
+        </div>
         {% endfor %}
     </div>
     {% if is_paginated %}
